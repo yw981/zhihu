@@ -161,6 +161,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Naux\Mail\SendCloudServiceProvider::class,
+        Overtrue\LaravelUEditor\UEditorServiceProvider::class,
 
     ],
 
