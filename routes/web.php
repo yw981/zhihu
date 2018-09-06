@@ -25,3 +25,7 @@ Route::resource('question','QuestionController',['names' => [
     'create' => 'question.create',
     'show' => 'question.show',
 ]]);
+
+Route::get('/test', function () {
+    return view('test');
+});
