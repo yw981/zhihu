@@ -21,6 +21,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('email/verify/{token}', 'EmailController@verify')->name('email.verify');
 
+Route::get('avatar','UserController@avatar');
+Route::post('avatar','UserController@changeAvatar');
+
 Route::resource('question','QuestionController',['names' => [
     'create' => 'question.create',
     'show' => 'question.show',

@@ -18,5 +18,9 @@
         "laravel-mix": "^2.0",
         "lodash": "^4.17.5",
         "vue": "^2.5.7"
+    },
+    "dependencies": {
+        "babel-polyfill": "^6.26.0",
+        "vue-image-crop-upload": "^2.5.0"
     }
 }
