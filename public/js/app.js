@@ -2560,6 +2560,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             show: false,
             params: {
+                // 新版本统一用这种方式获取CSRF
                 _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 name: 'img'
             },
