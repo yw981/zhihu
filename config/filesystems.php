@@ -69,7 +69,7 @@ return [
             'access_key' => env('QINIU_ACCESS_KEY'),
             'secret_key' => env('QINIU_SECRET_KEY'),
             'bucket'     => 'zhihu',
-            'domain'     => 'omymmhspc.bkt.clouddn.com',
+            'domain'     => 'pf8ppllyf.bkt.clouddn.com',
         ],
 
     ],
