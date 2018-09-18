@@ -30,10 +30,7 @@ Route::post('password/update','UserController@updatePassword');
 Route::get('setting','UserController@setting');
 Route::post('setting','UserController@updateSetting');
 
-Route::resource('question','QuestionController',['names' => [
-    'create' => 'question.create',
-    'show' => 'question.show',
-]]);
+Route::resource('question','QuestionController');
 
 Route::get('/test', function () {
     return view('test');

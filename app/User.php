@@ -64,14 +64,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(Answer::class);
     }
+
     /**
-     * @param Model $model
+     * @param Question $question
      * @return bool
      */
-    public function owns(Model $model)
+    public function owns(Question $question)
     {
-        return $this->id == $model->user_id;
+        return $this->id == $question->user_id;
     }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

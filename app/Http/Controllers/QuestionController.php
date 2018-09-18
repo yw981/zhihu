@@ -27,7 +27,8 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        //
+        $questions = $this->questionRepository->getQuestionsFeed();
+        return view('question.index', compact('questions'));
     }
 
     /**
@@ -77,34 +78,50 @@ class QuestionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $question = $this->questionRepository->byId($id);
+        if ( Auth::user()->owns($question) ) {
+            return view('question.edit', compact('question'));
+        }
+        return back();
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreQuestionRequest $request, $id)
     {
-        //
+        $question = $this->questionRepository->byId($id);
+        $topics = $this->questionRepository->normalizeTopic($request->get('topics'));
+        $question->update([
+            'title' => $request->get('title'),
+            'body'  => $request->get('body'),
+        ]);
+        $question->topics()->sync($topics);
+        return redirect()->route('question.show', [$question->id]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $question = $this->questionRepository->byId($id);
+        if ( Auth::user()->owns($question) ) {
+            $question->delete();
+            return redirect('/');
+        }
+        abort(403, 'Forbidden'); // return back();
     }
 }
