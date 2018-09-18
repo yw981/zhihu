@@ -22,7 +22,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('email/verify/{token}', 'EmailController@verify')->name('email.verify');
 
 Route::get('avatar','UserController@avatar');
-Route::post('avatar','UserController@changeAvatar');
+Route::post('avatar','UserController@updateAvatar');
+
+Route::get('password','UserController@password');
+Route::post('password/update','UserController@updatePassword');
+
+Route::get('setting','UserController@setting');
+Route::post('setting','UserController@updateSetting');
 
 Route::resource('question','QuestionController',['names' => [
     'create' => 'question.create',
