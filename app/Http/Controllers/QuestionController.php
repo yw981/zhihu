@@ -119,8 +119,10 @@ class QuestionController extends Controller
     {
         $question = $this->questionRepository->byId($id);
         if ( Auth::user()->owns($question) ) {
+            // detach() 删除多对多关联，不加参数全删，加参数删除指定的
+            $question->topics()->detach();
             $question->delete();
-            return redirect('/');
+            return redirect(route('question.index'));
         }
         abort(403, 'Forbidden'); // return back();
     }

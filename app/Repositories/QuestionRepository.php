@@ -45,7 +45,7 @@ class QuestionRepository
      */
     public function getQuestionsFeed()
     {
-        return Question::published()->latest('updated_at')->with('user')->get();
+        return Question::published()->latest('updated_at')->get();
     }
 
     /**
