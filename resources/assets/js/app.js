@@ -16,6 +16,8 @@ window.Vue = require('vue');
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('question-follow-button', require('./components/QuestionFollowButton.vue'));
+Vue.component('comments', require('./components/Comments.vue'));
 Vue.component('user-avatar', require('./components/Avatar.vue'));
 
 const app = new Vue({

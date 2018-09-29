@@ -32,6 +32,8 @@ Route::post('setting','UserController@updateSetting');
 
 Route::resource('question','QuestionController');
 
+Route::post('question/{question}/answer','AnswerController@store');
+
 Route::get('/test', function () {
     return view('test');
 });
