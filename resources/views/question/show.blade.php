@@ -26,6 +26,34 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading question-follow">
+                        <h5>关于作者</h5>
+                    </div>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading"><a href="">
+                            {{ $question->user->name }}
+                        </a>
+                    </h4>
+                </div>
+                <div class="user-statics" >
+                    <div class="statics-item text-center">
+                        <div class="statics-text">问题</div>
+                        <div class="statics-count">{{ $question->user->questions_count }}</div>
+                    </div>
+                    <div class="statics-item text-center">
+                        <div class="statics-text">回答</div>
+                        <div class="statics-count">{{ $question->user->answers_count }}</div>
+                    </div>
+                    <div class="statics-item text-center">
+                        <div class="statics-text">关注者</div>
+                        <div class="statics-count">{{ $question->user->followers_count }}</div>
+                    </div>
+                </div>
+                <user-follow-button user="{{$question->user_id}}"></user-follow-button>
+            </div>
             <div class="col-md-8 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -50,7 +78,8 @@
                         @endforeach
                     </div>
                     <div class="panel-body content">
-                        <form action="/question/{{ $question->id }}/answer" method="post">
+                        @if(Auth::check())
+                            <form action="/question/{{ $question->id }}/answer" method="post">
                             @csrf
                             <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
                                 <label for="body">描述</label>
@@ -65,6 +94,9 @@
                             </div>
                             <button class="btn btn-success pull-right" type="submit">发布answer</button>
                         </form>
+                        @else
+                            <a href="{{ url('login') }}" class="btn btn-success btn-block">登录提交答案</a>
+                        @endif
                     </div>
                 </div>
             </div>
