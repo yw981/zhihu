@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'QuestionsController@index');
+Route::get('/', 'QuestionController@index');
 
 Auth::routes();
 
