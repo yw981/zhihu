@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <question-follow-button question="{{$question->id}}" user="{{ Auth::user()->id }}"></question-follow-button>
+                    <question-follow-button question="{{$question->id}}"></question-follow-button>
                     <a href="#editor" class="btn btn-primary pull-right">撰写答案</a>
                 </div>
                 {{--<question-follow-button question="{{$question->id}}"></question-follow-button>--}}

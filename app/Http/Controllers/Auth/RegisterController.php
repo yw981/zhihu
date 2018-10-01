@@ -72,6 +72,7 @@ class RegisterController extends Controller
             // avatar 数据库默认值 'images/avatars/default.png'
             'confirmation_token' => str_random(32),
             'password' => Hash::make($data['password']),
+            'api_token' => str_random(64),
         ]);
         $this->sendVerifyEmailTo($user);
         return $user;

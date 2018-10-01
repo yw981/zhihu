@@ -25,4 +25,4 @@ Route::middleware('api')->get('/topics', function (Request $request) {
 });
 
 Route::middleware('api')->post('/question/follower','QuestionFollowController@follower');
-Route::middleware('api')->post('/question/follow','QuestionFollowController@followThisQuestion');
+Route::middleware('auth:api')->post('/question/follow','QuestionFollowController@followThisQuestion');

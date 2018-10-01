@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\QuestionRepository;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionFollowController extends Controller
 {
@@ -28,7 +29,7 @@ class QuestionFollowController extends Controller
 
     public function follower(Request $request)
     {
-        $user = User::find($request->get('user'));
+        $user = Auth::guard('api')->user();
         if($user->followed($request->get('question'))) {
             return response()->json(['followed' => true]);
         }
@@ -37,7 +38,7 @@ class QuestionFollowController extends Controller
 
     public function followThisQuestion(Request $request)
     {
-        $user = User::find($request->get('user'));
+        $user = Auth::guard('api')->user();
         $question = $this->question->byId($request->get('question'));
         $followed = $user->followThis($question->id);
         if(count($followed['detached']) > 0) {

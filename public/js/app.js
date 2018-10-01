@@ -2768,11 +2768,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['question', 'user'],
+    props: ['question'],
     mounted: function mounted() {
         var _this = this;
 
-        axios.post('/api/question/follower', { 'question': this.question, 'user': this.user }).then(function (response) {
+        axios.post('/api/question/follower', { 'question': this.question }).then(function (response) {
+            // console.log(response.data)
             _this.followed = response.data.followed;
         });
     },
@@ -2791,7 +2792,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         follow: function follow() {
             var _this2 = this;
 
-            axios.post('/api/question/follow', { 'question': this.question, 'user': this.user }).then(function (response) {
+            axios.post('/api/question/follow', { 'question': this.question }, {
+                'Authorization': 'Bearer ' + document.head.querySelector('meta[name="apiToken"]').content
+            }).then(function (response) {
                 _this2.followed = response.data.followed;
             });
         }
@@ -59394,10 +59397,10 @@ window.Popper = __webpack_require__("./node_modules/popper.js/dist/esm/popper.js
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__("./node_modules/jquery/dist/jquery.js");
+    window.$ = window.jQuery = __webpack_require__("./node_modules/jquery/dist/jquery.js");
 
-  __webpack_require__("./node_modules/bootstrap/dist/js/bootstrap.js");
-  __webpack_require__("./resources/assets/js/select2.min.js");
+    __webpack_require__("./node_modules/bootstrap/dist/js/bootstrap.js");
+    __webpack_require__("./resources/assets/js/select2.min.js");
 } catch (e) {}
 
 /**
@@ -59419,9 +59422,16 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
+
+var api_token = document.head.querySelector('meta[name="apiToken"]');
+if (api_token) {
+    window.axios.defaults.headers.common['Authorization'] = api_token.content;
+} else {
+    console.error('API token not found !');
 }
 
 /**
