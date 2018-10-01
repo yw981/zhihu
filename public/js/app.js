@@ -2768,11 +2768,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['question'],
+    props: ['question', 'user'],
     mounted: function mounted() {
         var _this = this;
 
-        this.$http.post('/api/question/follower', { 'question': this.question }).then(function (response) {
+        axios.post('/api/question/follower', { 'question': this.question, 'user': this.user }).then(function (response) {
             _this.followed = response.data.followed;
         });
     },
@@ -2791,7 +2791,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         follow: function follow() {
             var _this2 = this;
 
-            this.$http.post('/api/question/follow', { 'question': this.question }).then(function (response) {
+            axios.post('/api/question/follow', { 'question': this.question, 'user': this.user }).then(function (response) {
                 _this2.followed = response.data.followed;
             });
         }

@@ -52,7 +52,12 @@
                         <div class="statics-count">{{ $question->user->followers_count }}</div>
                     </div>
                 </div>
-                <user-follow-button user="{{$question->user_id}}"></user-follow-button>
+                <div class="panel-body">
+                    <question-follow-button question="{{$question->id}}" user="{{ Auth::user()->id }}"></question-follow-button>
+                    <a href="#editor" class="btn btn-primary pull-right">撰写答案</a>
+                </div>
+                {{--<question-follow-button question="{{$question->id}}"></question-follow-button>--}}
+                {{--<user-follow-button user="{{$question->user_id}}"></user-follow-button>--}}
             </div>
             <div class="col-md-8 col-md-offset-1">
                 <div class="panel panel-default">
