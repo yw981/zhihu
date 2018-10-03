@@ -21,16 +21,16 @@ class QuestionFollowController extends Controller
      * @param $question
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function follow($question)
-    {
-        Auth::user()->followThis($question);
-        return back();
-    }
+//    public function follow($question)
+//    {
+//        Auth::user()->followThis($question);
+//        return back();
+//    }
 
-    public function follower(Request $request)
+    public function follow_status(Request $request)
     {
         $user = Auth::guard('api')->user();
-        if($user->followed($request->get('question'))) {
+        if($user->isFollowed($request->get('question'))) {
             return response()->json(['followed' => true]);
         }
         return response()->json(['followed' => false]);
@@ -40,7 +40,7 @@ class QuestionFollowController extends Controller
     {
         $user = Auth::guard('api')->user();
         $question = $this->question->byId($request->get('question'));
-        $followed = $user->followThis($question->id);
+        $followed = $user->toggleFollow($question->id);
         if(count($followed['detached']) > 0) {
             $question->decrement('followers_count');
             return response()->json(['followed' => false]);

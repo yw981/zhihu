@@ -2772,7 +2772,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         var _this = this;
 
-        axios.post('/api/question/follower', { 'question': this.question }).then(function (response) {
+        axios.post('/api/question/follow_status', { 'question': this.question }).then(function (response) {
             // console.log(response.data)
             _this.followed = response.data.followed;
         });
@@ -2823,7 +2823,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         var _this = this;
 
-        this.$http.get('/api/user/followers/' + this.user).then(function (response) {
+        axios.get('/api/user/followers/' + this.user).then(function (response) {
             _this.followed = response.data.followed;
         });
     },
@@ -2842,7 +2842,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         follow: function follow() {
             var _this2 = this;
 
-            this.$http.post('/api/user/follow', { 'user': this.user }).then(function (response) {
+            axios.post('/api/user/follow', { 'user': this.user }).then(function (response) {
                 _this2.followed = response.data.followed;
             });
         }

@@ -81,29 +81,35 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Question::class, 'user_question')->withTimestamps();
     }
+
     /**
+     * user toggles a question.
      * @param $question
      * @return array
      */
-    public function followThis($question)
+    public function toggleFollow($question)
     {
         return $this->follows()->toggle($question);
     }
+
     /**
      * @param $question
      * @return bool
      */
-    public function followed($question)
+    public function isFollowed($question)
     {
+        // !!强制返回为布尔型，否则可以返回count数量
         return !!$this->follows()->where('question_id', $question)->count();
     }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function followers()
     {
-        return $this->belongsToMany(self::class, 'followers', 'follower_id', 'followed_id')->withTimestamps();
+        return $this->belongsToMany(self::class, 'followers', 'follower_id', 'followed_id');
     }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

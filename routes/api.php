@@ -24,5 +24,12 @@ Route::middleware('api')->get('/topics', function (Request $request) {
     return $topics;
 });
 
-Route::middleware('api')->post('/question/follower','QuestionFollowController@follower');
-Route::middleware('auth:api')->post('/question/follow','QuestionFollowController@followThisQuestion');
+// 获取用户关注问题的状态
+Route::middleware('auth:api')
+    ->post('/question/follow_status','QuestionFollowController@follow_status');
+// 执行用户关注问题
+Route::middleware('auth:api')
+    ->post('/question/follow','QuestionFollowController@followThisQuestion');
+
+Route::get('/user/followers/{id}','FollowerController@index');
+Route::post('/user/follow','FollowerController@follow');
