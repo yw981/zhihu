@@ -49,7 +49,7 @@
                             </div>
                             <div class="statics-item text-center">
                                 <div class="statics-text">关注者</div>
-                                <div class="statics-count">{{ $question->user->followers_count }}</div>
+                                <div class="statics-count">{{ $question->followers_count }}</div>
                             </div>
                         </div>
                         <div class="card-body">
