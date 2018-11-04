@@ -43,7 +43,7 @@
             <div class="col-md-8 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        {{ $question->answers_count }} gedaan
+                        {{ $question->answers_count }} 个答案
                     </div>
                     <div>
                         @foreach($question->answers as $answer)
@@ -115,7 +115,7 @@
                             </div>
                             <div class="statics-item text-center">
                                 <div class="statics-text">回答</div>
-                                <div class="statics-count">{{ $question->user->answers_count }}</div>
+                                <div class="statics-count">{{ $question->answers_count }}</div>
                             </div>
                             <div class="statics-item text-center">
                                 <div class="statics-text">关注者</div>
