@@ -4,15 +4,18 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-1">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
+                {{--问题展示区--}}
+                <div class="card">
+                    <div class="card-header">
                         {{ $question->title }}
                         @foreach($question->topics as $topic)
-                            <a class="topic pull-right" href="/topic/{{ $topic->id }}">{{ $topic->name }}</a>
+                            <a class="topic float-right" href="/topic/{{ $topic->id }}">{{ $topic->name }}</a>
                         @endforeach
                     </div>
-                    <div class="panel-body content">
-                        {!! $question->body !!}
+                    <div class="card-body content">
+                        <p class="card-text">
+                            {!! $question->body !!}
+                        </p>
                     </div>
                     <div class="actions">
                         @if(Auth::check() && Auth::user()->owns($question))
@@ -20,6 +23,7 @@
                             <form action="{{ route('question.destroy',$question->id) }}" method="POST" class="delete-form">
                                 {{ method_field('DELETE') }}
                                 @csrf
+                                {{--TODO 删除确认--}}
                                 <button class="button is-naked delete-button">删除</button>
                             </form>
                         @endif
@@ -27,6 +31,7 @@
                 </div>
             </div>
             <div class="col-md-3">
+                {{--问题关注--}}
                 <div class="card">
                     <div class="card-body question-follow">
                         <h2>{{ $question->followers_count }}</h2>
@@ -35,40 +40,39 @@
                     <hr>
                     <div class="card-body">
                         <question-follow-button question="{{$question->id}}"></question-follow-button>
-                        <a href="#editor" class="btn btn-primary pull-right">撰写答案</a>
+                        <a href="#editor" class="btn btn-primary float-right">撰写答案</a>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-8 col-md-offset-1">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
+            <div class="col-md-8 col-md-offset-1 mt-3">
+                {{--问题回答--}}
+                <div class="card">
+                    <div class="card-header">
                         {{ $question->answers_count }} 个答案
                     </div>
                     <div>
-                        @foreach($question->answers as $answer)
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="">
-                                        <img width="36" src="{{ $answer->user->avatar }}" alt="{{ $answer->user->name }}">
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">
-                                        <a href="/question/{{$answer->id}}">
-                                            {!! $answer->body !!}
+                        <div class="card-body">
+                            @foreach($question->answers as $answer)
+                                <div class="media">
+                                    <img src="{{ $answer->user->avatar }}" class="mr-3 mb-3 rounded-circle" style="width:64px;" alt="{{ $answer->user->name }}">
+                                    <div class="media-body">
+                                        <a href="">
+                                            <h5 class="mt-0">{{ $answer->user->name }}</h5>
                                         </a>
-                                    </h4>
+                                        {!! $answer->body !!}
+                                    </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
+
                     </div>
-                    <div class="panel-body content">
+                    <div class="card-body content">
                         @if(Auth::check())
                             <form action="/question/{{ $question->id }}/answer" method="post">
                             @csrf
                             <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
-                                <label for="body">描述</label>
+                                <label for="body">撰写答案</label>
 
                                 <script id="container" name="body" type="text/plain">{!! old('body') !!}</script>
 
@@ -78,7 +82,7 @@
                                     </span>
                                 @endif
                             </div>
-                            <button class="btn btn-success pull-right" type="submit">发表回答</button>
+                            <button class="btn btn-success float-right" type="submit">发表回答</button>
                         </form>
                         @else
                             <a href="{{ url('login') }}" class="btn btn-success btn-block">登录提交答案</a>
@@ -87,24 +91,18 @@
                 </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-3 mt-3">
                 <div class="card">
                     <div class="card-header question-follow">
                         <h5>关于作者</h5>
                     </div>
                     <div class="card-body">
                         <div class="media">
-                            <div class="media-left">
-                                <a href="#">
-                                    <img width="36" src="{{$question->user->avatar}}" alt="{{$question->user->name}}">
-                                </a>
-                            </div>
+                            <img src="{{ $question->user->avatar }}" class="mr-3 mb-3 rounded-circle" style="width:36px;" alt="{{ $question->user->name }}">
                             <div class="media-body">
-                                <h4 class="media-heading">
-                                    <a href="">
-                                        {{ $question->user->name }}
-                                    </a>
-                                </h4>
+                                <a href="">
+                                    <h5 class="mt-0">{{ $question->user->name }}</h5>
+                                </a>
                             </div>
                         </div>
 
@@ -124,7 +122,7 @@
                         </div>
                         <div class="card-body">
                             <user-follow-button user="{{$question->user_id}}"></user-follow-button>
-                            <a href="#editor" class="btn btn-primary pull-right">撰写答案</a>
+                            <a href="#editor" class="btn btn-primary float-right">撰写答案</a>
                         </div>
                     </div>
                 </div>
